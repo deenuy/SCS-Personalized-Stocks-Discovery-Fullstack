@@ -7,10 +7,6 @@ module.exports = function(sequelize, DataTypes) {
         stockSymbol: {
             type: DataTypes.STRING(10),
             allowNull: false
-        },
-        userID: {
-            type: DataTypes.INTEGER,
-            allowNull: false
         }
     }, {
         indexes: [{
@@ -19,12 +15,12 @@ module.exports = function(sequelize, DataTypes) {
             }
         ]
     });
-    /*
-    Country.associate = function(models) {
-        Country.hasMany(models.Place, {
-            onDelete: "cascade"
+    
+    FavoriteStock.associate = function(models) {
+        FavoriteStock.belongsTo(models.stockSymbol, {
+            foreignKey: {allowNull: false}
         });
     };
-    */
+    
     return FavoriteStock;
 };

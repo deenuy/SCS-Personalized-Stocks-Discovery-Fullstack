@@ -31,12 +31,12 @@ module.exports = function(sequelize, DataTypes) {
             }
         ]
     });
-    /*
-    Country.associate = function(models) {
-        Country.hasMany(models.Place, {
+    
+    User.associate = function(models) {
+        User.hasMany(models.FavoriteStock, {
             onDelete: "cascade"
         });
     };
-    */
+    
     return User;
 };
