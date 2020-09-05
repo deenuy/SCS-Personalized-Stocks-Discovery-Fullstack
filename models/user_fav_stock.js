@@ -17,8 +17,13 @@ module.exports = function(sequelize, DataTypes) {
     });
     
     FavoriteStock.associate = function(models) {
-        FavoriteStock.belongsTo(models.stockSymbol, {
-            foreignKey: {allowNull: false}
+        FavoriteStock.belongsTo(models.User, {
+            foreignKey: {allowNull: false},
+        });
+    };
+    FavoriteStock.associate = function(models) {
+       FavoriteStock.hasMany(models.FavoriteNews, {
+        onDelete: "cascade"
         });
     };
     
