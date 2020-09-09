@@ -68,7 +68,7 @@ $(document).ready(function(){
   
         if (resultObj[i].company) {
           $articleListItem.append(
-            "<span class='label label-primary' style='background: #522399; color: #fff; padding: 0.2rem;'>" +
+            "<span class='label label-primary' style='background: #522399; color: #fff; padding: 0.2rem; margin-bottom: 0.2rem;'>" +
               "<strong> " +
               resultObj[i].company +
               "</strong>"
@@ -77,17 +77,17 @@ $(document).ready(function(){
   
         // If the article has a byline, log and append to $articleList
         if (resultObj[i].title) {
-          $articleListItem.append("<h5 class='newsHeadline'>" + resultObj[i].title + "</h5>");
+          $articleListItem.append("<h5 class='newsHeadline' style='margin-top: 0.75rem; margin-bottom: 0.75rem;'>" + resultObj[i].title + "</h5>");
         }
   
         // Log section, and append to document if exists
         if (resultObj[i].author) {
-          $articleListItem.append("<h5 class='author'>Author: " + resultObj[i].author + "</h5>");
+          $articleListItem.append("<h5 class='author' style='margin-top: 0.75rem; margin-bottom: 0.75rem;'>Author: " + resultObj[i].author + "</h5>");
         }
   
         // Log published date, and append to document if exists
         if (resultObj[i].publisher) {
-          $articleListItem.append("<h5 class='author'>" + resultObj[i].publisher + "</h5>");
+          $articleListItem.append("<h5 class='author' style='margin-top: 0.75rem; margin-bottom: 0.75rem;'>" + resultObj[i].publisher + "</h5>");
         }
   
         // Append news log url

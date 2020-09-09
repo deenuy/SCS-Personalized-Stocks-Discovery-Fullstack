@@ -4,16 +4,71 @@ body {
   font-size: 14px;
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
+/* Header Navbar */
 header {
-  min-height: 540px;
+  min-height: 8rem;
+}
+.navbar-global{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background-color: #2a0071;
+  background-image: -webkit-linear-gradient(305deg, #b77bfb, #2a0071 30%);
+  background-image: -o-linear-gradient(305deg, #b77bfb, #2a0071 30%);
+  background-image: linear-gradient(145deg, #b77bfb, #2a0071 30%);
+  height: 8rem;
+}
+.navbar-logo{
+  display: inherit;
+  margin-left: 15%;
+  padding: 0;
+  margin-bottom: 0;
+  color: #fff;
+}
+.navbar-logo-caption{
+  margin-top: 2.8rem;
+  margin-bottom: 0;
+  width: 20rem;
+}
+.navbar-list{
+  display: inherit;
+  padding-left: 35%;
+  padding-top: 0;
+  margin: 0;
+}
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 2.8rem;
+}
+.nav-item{
+  padding: 0 2.5rem  0 2.5rem;
+  color: #fff;
+  font-size: xx-large;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.nav-item:hover{
+  text-decoration-style: none;
+  color: #fff;
+}
+.flavor--Chroma.accent--Blurple {
+  --accentColor: #635bff;
+}
+
+/* Main Cotainer */
+.main-container .container{
+  height: 48rem;
 }
 .background{
-  background-image: url(../img/bg-img.png);
+  /* background-image: url(../img/bg-img.png); */
+  background: #f6f9fc;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
-  min-height: 540px;
+  height: 300vh;
   position: absolute;
   left: 0;
   right: 0;
@@ -22,34 +77,55 @@ header {
   -webkit-filter: blur(1px);
   box-shadow: 0 0 3em 0 rbga(0,0,0,.5) ;
 }
-.overlay{
-  position: inherit;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  background-color: #ffffff;
-  opacity: 0.35;
-  filter: aplha(opacity=50);
-  height: 540px;
-  z-index: -1;
-}
 .heading{
   z-index: 2;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  padding-top: 10rem;
+  padding-top: 8rem;
+  padding-bottom: 5rem;
   color: black;
 }
-h1{
+.heading > h1{
+  text-align: center;
   margin-bottom: .5rem;
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 600;
 }
-h5{
+.heading > h5{
   margin-top: 15px;
 }
-
+.heading > p {
+  margin-top: 1rem;
+  font-size: x-large;
+}
+.btn-primary{
+  line-height: 40px;
+  background-color: #635bff;
+  font-size: x-large;
+  color: #fff;
+  height: 40px;
+}
+.button {
+  width: 10rem;
+  height: 3.2rem;
+  padding-top: .25em;
+  font-size: x-large;
+  letter-spacing: 0;
+  display: inline-block;
+  outline: none;
+  border: none;
+  border-radius: 3em;
+  box-sizing: border-box;
+  position: relative;
+  font-size: 14px;
+  text-decoration: none;
+  text-transform: capitalize;
+  white-space: nowrap;
+  text-align: center;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
 .headline-color{
   /* font-family: "Open Sans", Helvetica, Arial, sans-serif; */
   font-family: 'Bungee Inline', cursive;
@@ -57,9 +133,13 @@ h5{
   font-size: 3.4rem;
   color: #19194d;
 }
+.search-bar{
+  display: flex;
+  flex-direction: row;
+  box-shadow: 5px 10px 15px #bfc5ff, 0 0 0 2px #ffffffeb;
+}
 .search-container{
   display: block;
-  margin-top: 3rem;
   width: 100%;
   background: #fff;
   border-left: 0;
@@ -71,68 +151,99 @@ h5{
 .search-container input{
   width: 100%;
   padding-left: 10px;
-  height: 60px;
+  height: 5rem;
   box-sizing: border-box;
-  background-color: whitesmoke;
+  background-color:#fff;
   border: 0;
-  font-size: 1.4rem;
+  font-size: 2.0rem;
   color: #333;
-}
-.search-bar{
-  display: flex;
-  flex-direction: row;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12), 0 0 1px rgba(0,0,0,0.05) inset;
 }
 
 .suggestions {
   border-top: 2px solid #7a7ad4;
-  max-height: 10rem;
+  max-height: 12rem;
   display: none;
   z-index:10;
 }
 
 .suggestions.show {
   display: block;
+  z-index: 20;
 }
 
 .suggestions > div{
   padding: 15px;
-  font-size: 16px;
+  font-size: 1.4rem;
   color: rgb(102, 102, 102);
   border-top: 0.5px solid #c6c6f1;
   cursor: pointer;
   transition: all 0.5s;
   margin-bottom: 0;
+  z-index: 21;
 }
 
 .suggestions > div:hover, .suggestions > div.selected {
+  z-index: 22;
   background-color: #d2daf3;
   color: #333;
 }
 
 .search-icon{
-  margin-top: 3rem;
-  width: 6rem;
-  height: 60px;
-  font-size: x-large;
+  width: 8rem;
+  height: 5rem;
+  font-size: xx-large;
   background-color: #333399;
   border-color: #2d2d86;
 }
 
+/* News Container Section  */
 .news-container {
   position: relative;
-  padding-top: 2rem;
+  padding-top: 1.2rem;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
-.row {
+.news-container > .row {
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.card-header {
+  padding: .75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: rgba(52, 21, 126, .9);
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  color: #fff;
+  font-size: large;
+}
+.card-body{
+  background-color: #fff;
 }
 .card {
   min-width: 75em;
 }
+.list-group {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0px;
+  margin-bottom: 15px;
+  border-radius: 0.25rem;
+}
+
+.newsHeadline{
+  font-weight: bold;
+}
+.author{
+  font-size: medium;
+}
+.news-placeholder{
+  min-width: 740px;
+}
+
+/* Section 2: Top Statistics Listings */
 .stats-ul{
   margin: 0;
   padding-left: 0;
@@ -147,14 +258,41 @@ h5{
 .stats-list-value{
   font-weight: bold;
 }
-.newsHeadline{
-  font-weight: bold;
+.statistics-stock{
+  display: flex;
+  justify-content: space-around;
+  /* margin-bottom: 0; */
+  flex-grow: 1;
+  margin: 0 8px;
+  min-height: 56px;
 }
-.author{
-  font-size: medium;
+
+.dataAttr{
+  border-top: 1px dotted #000;
+  margin: 2px;
+  list-style-type: none;
 }
-.news-placeholder{
-  min-width: 740px;
+
+.dataAttrLabel{
+  display: block;
+  margin-bottom: 0;
+  margin-top: 1em;
+}
+
+.dataAttrValue{
+  display: block;
+  margin-bottom: 0;
+  margin-top: 1em;
+}
+
+@media screen and (max-width: 1023px){
+.statistics-stock {
+    margin-top: 15px;
+}
+
+@media screen and (min-width: 480px){
+.dataAttr {
+    width: 30%;
 }
 
 @media screen and (max-width: 768px) {
