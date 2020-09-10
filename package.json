@@ -1,0 +1,27 @@
+{
+  "name": "SCS-Personalized-Stocks-Discovery-Fullstack",
+  "version": "1.0.0",
+  "description": "## User Story:  As a commodity and stock market follower, we want to discover new companies and expand the horizon of the investment selections. If the company does not align with the investment criteria, we would still be able to retain the information, for daily conversations with the peers, or future investment opportunities.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deenuy/SCS-Personalized-Stocks-Discovery-Fullstack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deenuy/SCS-Personalized-Stocks-Discovery-Fullstack/issues"
+  },
+  "homepage": "https://github.com/deenuy/SCS-Personalized-Stocks-Discovery-Fullstack#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "mysql2": "^2.1.0",
+    "sequelize": "^6.3.5"
+  }
+}
