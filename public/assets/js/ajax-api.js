@@ -8,6 +8,7 @@ $(document).ready(function(){
   var obj = [];
   var search_symbol = null;
   var newSummaryObj = [];
+  var newStockObj = [];
 
   const searchInput = document.querySelector('.search-input');
   const suggestionPanel = document.querySelector(".suggestions");
@@ -29,18 +30,37 @@ $(document).ready(function(){
   }
   // Render auto-suggestion for displaying stock companies and symbols based on user entry in search bar
   function renderSelection(resultObj) {
+    newStockObj = [];
 
     suggestionPanel.classList.add('show');
 
+    var numStockResults = resultObj.ResultSet.Result;
+
     // Display companies for auto suggestions
-    for (var i=0; i<resultObj.ResultSet.Result.length; i++) {
-      var company = resultObj.ResultSet.Result[i].name;
-      var company_ticker = resultObj.ResultSet.Result[i].symbol;
+    for (var i=0; i<numStockResults.length; i++) {
+
+      // Construct array with news feed objects
+      newStockObj.push({
+        'id': i,
+        'exch': numStockResults[i].exch,
+        'exchDisp': numStockResults[i].exchDisp,
+        'name': numStockResults[i].name,
+        'symbol': numStockResults[i].symbol,
+        'type': numStockResults[i].type,
+        'typeDisp': numStockResults[i].typeDisp
+      });
+
+      // console.log(newStockObj[i].name);
+
+      // Store Stock News Data into Browser Local Storage
+      localStorage.setItem('scs_stockSymbos', JSON.stringify(newStockObj));
 
       const div = document.createElement('div');
-      div.innerHTML = company +" ("+ company_ticker +")";
+      div.innerHTML = newStockObj[i].name +" ("+ newStockObj[i].symbol +")";
       div.setAttribute('class', 'suggestion');
       suggestionPanel.append(div);
+
+      // New enhancement to show stock company details in Suggestion Panel
     }
   }
   // reset the selected suggestion list from auto-suggestion feature
@@ -186,7 +206,6 @@ $(document).ready(function(){
     
     // Listener event on user key entry in search bar for auto-suggestion of stock company and symbol
     searchInput.addEventListener('keyup', function(e){
-      console.log(e.key);
       suggestionPanel.innerHTML = '';
 
       const input = searchInput.value;
@@ -207,7 +226,6 @@ $(document).ready(function(){
         }
 
         $.ajax(settings).done(function (response) {
-          console.log(response);
           renderSelection(response);
         });
       }
