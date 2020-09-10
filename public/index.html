@@ -19,39 +19,66 @@
 	<script src="https://kit.fontawesome.com/3e0c607514.js" crossorigin="anonymous"></script> 
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 
 	<title>Stock and Commodity News Website</title>
 </head>
 
 <body>
 	<header>
+		<nav class="navbar-global">
+			<div class="navbar-logo">
+				<a class="navbar-logo-caption" href="#">Insert Logo</a>
+			</div>
+			<div class="navbar-list" id="navbarNavAltMarkup">
+				<ul class="navbar-nav">
+					<li><a class="nav-item" href="./public/index.html">Discover Stocks</a></li>
+					<li><a class="nav-item" href="./my-dashboard.html">My Dashboard</a></li>
+					<li><a class="nav-item" href="./team.html">Team</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<main>
 		<div class="main-container">
 			<!-- Search bar and title header-->
 			<div class="container">
 				<!-- Background image -->
-				<div class="background">
-					<div class="overlay"></div>
-				</div> 
+				<div class="background"></div> 
 				<div class="heading">
-					<h1 class="h">Discover <span class="headline-color">Stock & Commodity</span> Things</h1>
+					<h1 class="h">Discover Stock & Commodity Things</h1>
+					<p>Discover the Stocks and Commodities with personalized experience for new comers in Trading. Discover Stocks will help you retrive user friendly content and news. You can bookmark news and stock companies to save and track later. </p>
+					<a class="btn-primary button" title="Read More" aria-label="Read More" href="/help" style="font-size: 1em;">Read More</a>
 				</div>
 				<div class="search-bar">
 					<div class="search-container">
 						<input type="text" class="search-input" placeholder="Search for News, Stocks or Companies">
-						<div class="suggestions"></div>
+						<select class="search-input-region">
+							<option value="US" selected>US</option>
+							<option value="IN">IN</option>
+							<option value="CA">CA</option>
+							<option value="FR">FR</option>
+							<option value="GB">GB</option>
+							<option value="BR">BR</option>
+							<option value="AU">AU</option>
+							<option value="DE">DE</option>
+							<option value="IT">IT</option>
+							<option value="HK">HK</option>
+							<option value="ES">ES</option>
+							<option value="SG">SG</option>
+						</select>
+						<!--region US|BR|AU|CA|FR|DE|HK|IN|IT|ES|GB|SG One of the following is allowed -->
 					</div>
 					<button class="btn btn-primary search-icon" id="run-search-01" type="submit">
 						<i class="fa fa-search"></i>
 					</button>
 				</div>
+				<div class="suggestions"></div>
 			</div>
 		</div>
-	</header>
-	<main>
 		<div class="news-container">
 			<!-- News feed and widget section -->
-			<div class="row">
+			<div class="row news-summary">
 				<div class="col-6 news-placeholder">
 					<!-- This row will handle all of the retrieved articles -->
 					<section class="row">
@@ -87,50 +114,58 @@
 								</div>
 								<!-- This main card will hold each of the resulting articles -->
 								<article class="card-body" id="article-section-2">
-									<div class="statistics"> </div>
-								</article>
-							</div>
-						</div>
-					</section>
-				</div>
-				<div class="col-6 news-placeholder">
-					<!-- This row will handle all of the retrieved articles -->
-					<section class="row">
-						<div class="col-md-12">
-							<br>
-							<!-- This card will initially be made up of a card and wells for each of the articles retrieved -->
-							<div class="card">
-								<!-- card Heading for the retrieved articles box -->
-								<div class="card-header">
-									<strong><i class="fa fa-table"></i> Top Statistics listings</strong>
-								</div>
-								<!-- This main card will hold each of the resulting articles -->
-								<article class="card-body" id="article-section-2">
-									<!-- TradingView Widget BEGIN -->
-									<div class="tradingview-widget-container" style=" display: flex; justify-content: left;">
-										<div id="basic-area-chart"></div>
-										<div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/AAPL/" rel="noopener" target="_blank"><span class="blue-text">AAPL Chart</span></a> by TradingView</div>
-										<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-										<script type="text/javascript">
-										new TradingView.widget(
-											{
-												"container_id": "basic-area-chart",
-												"width": 800,
-												"height": 350,
-												"symbol": "AAPL",
-												"interval": "D",
-												"timezone": "exchange",
-												"theme": "light",
-												"style": "3",
-												"toolbar_bg": "#f1f3f6",
-												"hide_top_toolbar": true,
-												"save_image": false,
-												"locale": "en"
-											}
-										);
-										</script>
+									<!-- <div class="statistics"> </div> -->
+									<div class="snapshotSummary">
+										<section class="company">
+											<span class="companyId">AAPL:US</span>
+											<span class="exchange">NASDAQ GS</span>
+											<div>
+												<h1 class="companyName">Apple Inc</h1>
+												<a class="companyProfileLink" href="/profile/company/AAPL:US">COMPANY INFO</a>
+											</div>
+										</section>
+										<section class="price">
+											<section><div class="overviewRow">
+												<span class="priceText">117.32</span>
+												<span class="currency">USD</span>
+											</div>
+											<div class="overviewRow">
+												<span class="changeAbsolute positive">+4.50</span>
+												<span class="changePercent positive">+3.99%</span>
+												<span class="triangle up">Up arrow</span>
+											</div>
+										</section>
 									</div>
-									<!-- TradingView Widget END -->
+									<div class="marketStatus" data="show">
+										<section class="market-details">
+											<ul class="statistics-stock">
+												<li class="dataAttr openprice numeric">
+													<div class="dataAttrLabel"> <span>Open</span> </div>
+													<div class="dataAttrValue">120.07</div>
+												</li>
+												<li class="dataAttr previousClosing numeric">
+													<div class="dataAttrLabel"> <span>Prev Close</span> </div>
+													<div class="dataAttrValue">120.88</div>
+												</li>
+												<li class="dataAttr volume numeric">
+													<div class="dataAttrLabel"> <span>Volume</span> </div>
+													<div class="dataAttrValue">32,607,163</div>
+												</li>
+												<li class="dataAttr marketcap numeric">
+													<div class="dataAttrLabel"> <span>Market Cap<span> </div>
+													<div class="dataAttrValue">2.069T</div>
+												</li>
+												<li class="dataAttr volume numeric">
+													<div class="dataAttrLabel"> <span>Volume</span> </div>
+													<div class="dataAttrValue">32,607,163</div>
+												</li>
+												<li class="dataAttr marketcap numeric">
+													<div class="dataAttrLabel"> <span>Market Cap<span> </div>
+													<div class="dataAttrValue">2.069T</div>
+												</li>												
+											</ul>
+										</section>
+									</div>
 								</article>
 							</div>
 						</div>
@@ -154,8 +189,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
 	<!-- JavaScript -->
-	<script src="./scripts/ajax-api.js" type='text/javascript'></script>
-	<script src="./scripts/stocks-chart.js" type='text/javascript'></script>
+	<script src="./assets/js/ajax-api.js" type='text/javascript'></script>
 
 </body>
 </html>

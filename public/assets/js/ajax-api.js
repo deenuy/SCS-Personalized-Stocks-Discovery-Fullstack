@@ -8,6 +8,7 @@ $(document).ready(function(){
   var obj = [];
   var search_symbol = null;
   var newSummaryObj = [];
+  var newStockObj = [];
 
   const searchInput = document.querySelector('.search-input');
   const suggestionPanel = document.querySelector(".suggestions");
@@ -29,19 +30,53 @@ $(document).ready(function(){
   }
   // Render auto-suggestion for displaying stock companies and symbols based on user entry in search bar
   function renderSelection(resultObj) {
-    var suggestionList = 3;
+    newStockObj = [];
 
     suggestionPanel.classList.add('show');
 
-    // Display only top 6 companies for auto suggestions
-    for (var i=0; i<resultObj.ResultSet.Result.length; i++) {
-      var company = resultObj.ResultSet.Result[i].name;
-      var company_ticker = resultObj.ResultSet.Result[i].symbol;
+    var numStockResults = resultObj.ResultSet.Result;
+
+    // Display companies for auto suggestions
+    for (var i=0; i<numStockResults.length; i++) {
+
+      // Construct array with news feed objects
+      newStockObj.push({
+        'id': i,
+        'exch': numStockResults[i].exch,
+        'exchDisp': numStockResults[i].exchDisp,
+        'name': numStockResults[i].name,
+        'symbol': numStockResults[i].symbol,
+        'type': numStockResults[i].type,
+        'typeDisp': numStockResults[i].typeDisp
+      });
+
+      // console.log(newStockObj[i].name);
+
+      // Store Stock News Data into Browser Local Storage
+      localStorage.setItem('scs_stockSymbos', JSON.stringify(newStockObj));
 
       const div = document.createElement('div');
-      div.innerHTML = company +" ("+ company_ticker  +")";
+      div.innerHTML = newStockObj[i].name +" ("+ "<strong>" + newStockObj[i].symbol + "</strong>" +")";
       div.setAttribute('class', 'suggestion');
+      div.setAttribute('data', 'attr'+i);
       suggestionPanel.append(div);
+
+      // Add to watchlist icon on suggestion box
+      const favIconEl = document.createElement('i');
+      favIconEl.setAttribute('class', 'far fa-star');
+      div.append(favIconEl);
+      
+      // New enhancement to show stock company details in Suggestion Panel (Future Enhancement)
+
+      // <li class="P(0) " data-index="1">
+      //   <div role="link" title="Applied Materials, Inc." data-test="srch-sym" tabindex="0" class="Bgc($hoverBgColor):h Cur(p) M(0) Fz(s) Ta(start) Py(9px) Px(20px) Whx(nw) ">
+      //     <div class="W(5/8) IbBox Ell">
+      //       <div class="C($primaryColor) Fw(b) Mend(10px) W(80px) IbBox Ell" title="AMAT">AMAT</div>
+      //       <div class="Ell C($primaryColor) D(i) Va(tb)"><strong>App</strong>lied Materials, Inc.</div>
+      //     </div>
+      //     <div class="W(3/8) IbBox Ta(end) Fz(xs) C($finDarkGray)">Equity - NMS</div>
+      //   </div>
+      // </li>
     }
   }
   // reset the selected suggestion list from auto-suggestion feature
@@ -68,7 +103,7 @@ $(document).ready(function(){
   
         if (resultObj[i].company) {
           $articleListItem.append(
-            "<span class='label label-primary' style='background: #522399; color: #fff; padding: 0.2rem;'>" +
+            "<span class='label label-primary' style='background: #03A9F4; color: #fff; padding: 0.2rem; margin-bottom: 0.2rem;'>" +
               "<strong> " +
               resultObj[i].company +
               "</strong>"
@@ -77,17 +112,17 @@ $(document).ready(function(){
   
         // If the article has a byline, log and append to $articleList
         if (resultObj[i].title) {
-          $articleListItem.append("<h5 class='newsHeadline'>" + resultObj[i].title + "</h5>");
+          $articleListItem.append("<h5 class='newsHeadline' style='margin-top: 0.5rem; margin-bottom: 0.5rem;'>" + resultObj[i].title + "</h5>");
         }
   
         // Log section, and append to document if exists
         if (resultObj[i].author) {
-          $articleListItem.append("<h5 class='author'>Author: " + resultObj[i].author + "</h5>");
+          $articleListItem.append("<h5 class='author' style='margin-top: 0.5rem; margin-bottom: 0.5rem;'>Author: " + resultObj[i].author + "</h5>");
         }
   
         // Log published date, and append to document if exists
         if (resultObj[i].publisher) {
-          $articleListItem.append("<h5 class='author'>" + resultObj[i].publisher + "</h5>");
+          $articleListItem.append("<h5 class='author' style='margin-top: 0.5rem; margin-bottom: 0.5rem;'>" + resultObj[i].publisher + "</h5>");
         }
   
         // Append news log url
@@ -190,21 +225,24 @@ $(document).ready(function(){
       suggestionPanel.innerHTML = '';
 
       const input = searchInput.value;
+      var region = $(".search-input-region").val();
 
       if(input){
-        // Make the AJAX request to the API - GETs the JSON data at the query = input
+
+        // Make the AJAX request to the API - Get auto complete suggestion by term or phrase
         var settings = {
           "async": true,
           "crossDomain": true,
-          "url": "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/auto-complete?lang=en&region=US&query="+input,
+          "url": "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/auto-complete?region="+region+"&query="+input,
           "method": "GET",
           "headers": {
-              "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
-              "x-rapidapi-key": "88d999ffd3msh5b7eb7230c1ef95p1ff909jsn76383fb30752"
+            "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
+            "x-rapidapi-key": "88d999ffd3msh5b7eb7230c1ef95p1ff909jsn76383fb30752"
           }
         }
+
         $.ajax(settings).done(function (response) {
-            renderSelection(response);
+          renderSelection(response);
         });
       }
 
@@ -233,23 +271,46 @@ $(document).ready(function(){
           selectedSuggestionIndex = -1;
           return;
       }
+      if (e.key === 'Backspace'){
+        suggestionPanel.classList.remove('show');
+        return;
+      }
     })
 
     // Listener on click event to display the suggestion in search bar 
     document.addEventListener('click', function(e){
       if(e.target.className === 'suggestion') {
           // display selected company in search input value
-          searchInput.value = e.target.innerHTML;
-
-          // From selected stock company from auto suggestion extract Symbol. Ex: Apple Inc. (AAPL). Result is AAPL
+          // console.log($(this).attr('data'));
           search_symbol = e.target.innerHTML;
-          search_symbol = search_symbol.split(/[()]/)[1];
-         
+
           // On selection, hide suggestion list
           suggestionPanel.classList.remove('show');
+          
+          // From selected stock company from auto suggestion extract Symbol. Ex: Apple Inc. (AAPL). Result is AAPL
+          search_symbol = search_symbol.split(">")[1].split("<")[0];
+
+          searchInput.value = search_symbol;
       }
     })
 
+    // Add to watchlist Click event for Suggesntion Panel
+    document.addEventListener('click', function(e){
+      console.log(e.target.className);
+      if(e.target.className === 'far fa-star') {
+        // Change the star mark to solid star icon
+        $(".fa-star").addClass('fas');
+
+        $(".fa-star").removeClass('far');
+      } 
+      if(e.target.className === 'fas fa-star') {
+        // Change the star mark to solid star icon
+        $(".fa-star").addClass('far');
+
+        $(".fa-star").removeClass('fas');
+      } 
+    })
+    
     // .on("click") function associated with the Search Button
     $("#run-search-01").click(function(event) {
       event.preventDefault();
@@ -258,7 +319,7 @@ $(document).ready(function(){
       clear();
 
       // var region = $("#start-year").val().trim();
-      var region = 'US'
+      var region = $(".search-input-region").val();
 
       // Return from function early if submitted input is blank
       if (company === "") {
