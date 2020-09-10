@@ -77,7 +77,7 @@ a:hover{
 
 /* Main Cotainer */
 .main-container .container{
-  height: 26rem;
+  height: 32rem;
 }
 .background{
   /* background-image: url(../img/bg-img.png); */
@@ -244,7 +244,7 @@ a:hover{
   box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 .suggestions > div{
-  padding: 10px;
+  /* padding: 10px; */
   font-size: 1rem;
   color: rgb(102, 102, 102);
   border-top: 0.5px solid #c6c6f1;
@@ -257,7 +257,21 @@ a:hover{
   background-color: #d2daf3;
   color: #333;
 }
-
+.suggestion{
+  display: flex;
+  flex-direction: row;
+  padding: .5em 2em .5em 1em;
+}
+.fa-star{
+  cursor: pointer;
+  margin-left: auto;
+  font-size: 15px;
+  color: #03A9F4;
+}
+.fa-star:hover{
+  cursor: pointer;
+  margin-left: auto;
+}
 .search-icon{
   width: 8rem;
   height: 3.4rem;
@@ -331,30 +345,84 @@ a:hover{
 .stats-list-value{
   font-weight: bold;
 }
+.snapshotSummary{
+  width: 500px;
+}
+.snapshotSummary .company{
+  font-size: 18px;
+}
+.snapshotSummary .companyProfileLink,
+.snapshotSummary .exchange{
+  font-size: 10px;
+  margin-left: 10px;
+  color: #767676;
+}
+.snapshotSummary .price{
+  margin-top: 15px;
+}
+.overviewRow{
+  display: inline-block;
+  margin-right: 20px;
+}
+.snapshotSummary .priceText{
+  font-size: 48px;
+}
+.snapshotSummary .currency{
+  font-size: 10px;
+  margin-left: 5px;
+  margin-right: 20px;
+}
+.snapshotSummary .changeAbsolute {
+  display: inline-block;
+  font-size: 18px;
+}
+.snapshotSummary .changePercent {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 18px;
+}
+.snapshotSummary .triangle {
+  margin-left: 10px;
+  font-size: 14px;
+}
+.marketStatus{
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.market-details{
+  margin-top: 68px;
+}
 .statistics-stock{
-  display: flex;
-  justify-content: space-around;
   /* margin-bottom: 0; */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
   flex-grow: 1;
-  margin: 0 8px;
   min-height: 56px;
 }
 
 .dataAttr{
-  border-top: 1px dotted #000;
-  margin: 2px;
+  flex-grow: 1;
+  border-top: 1px dotted #512DA8;
+  margin: 0 0 5px 22px;
+  min-height: 5rem;
   list-style-type: none;
 }
 
 .dataAttrLabel{
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
   color: #767676;
   margin-top: 5px;
 }
 
 .dataAttrValue{
-  font-size: 14px;
+  font-size: 22px;
   margin-top: 9px;
   padding-bottom: 9px;
 }

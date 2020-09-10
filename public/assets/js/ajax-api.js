@@ -56,11 +56,27 @@ $(document).ready(function(){
       localStorage.setItem('scs_stockSymbos', JSON.stringify(newStockObj));
 
       const div = document.createElement('div');
-      div.innerHTML = newStockObj[i].name +" ("+ newStockObj[i].symbol +")";
+      div.innerHTML = newStockObj[i].name +" ("+ "<strong>" + newStockObj[i].symbol + "</strong>" +")";
       div.setAttribute('class', 'suggestion');
+      div.setAttribute('data', 'attr'+i);
       suggestionPanel.append(div);
 
-      // New enhancement to show stock company details in Suggestion Panel
+      // Add to watchlist icon on suggestion box
+      const favIconEl = document.createElement('i');
+      favIconEl.setAttribute('class', 'far fa-star');
+      div.append(favIconEl);
+      
+      // New enhancement to show stock company details in Suggestion Panel (Future Enhancement)
+
+      // <li class="P(0) " data-index="1">
+      //   <div role="link" title="Applied Materials, Inc." data-test="srch-sym" tabindex="0" class="Bgc($hoverBgColor):h Cur(p) M(0) Fz(s) Ta(start) Py(9px) Px(20px) Whx(nw) ">
+      //     <div class="W(5/8) IbBox Ell">
+      //       <div class="C($primaryColor) Fw(b) Mend(10px) W(80px) IbBox Ell" title="AMAT">AMAT</div>
+      //       <div class="Ell C($primaryColor) D(i) Va(tb)"><strong>App</strong>lied Materials, Inc.</div>
+      //     </div>
+      //     <div class="W(3/8) IbBox Ta(end) Fz(xs) C($finDarkGray)">Equity - NMS</div>
+      //   </div>
+      // </li>
     }
   }
   // reset the selected suggestion list from auto-suggestion feature
@@ -265,17 +281,36 @@ $(document).ready(function(){
     document.addEventListener('click', function(e){
       if(e.target.className === 'suggestion') {
           // display selected company in search input value
-          searchInput.value = e.target.innerHTML;
+          // console.log($(this).attr('data'));
           search_symbol = e.target.innerHTML;
 
           // On selection, hide suggestion list
           suggestionPanel.classList.remove('show');
           
           // From selected stock company from auto suggestion extract Symbol. Ex: Apple Inc. (AAPL). Result is AAPL
-          search_symbol = search_symbol.split(/[()]/)[1];
+          search_symbol = search_symbol.split(">")[1].split("<")[0];
+
+          searchInput.value = search_symbol;
       }
     })
 
+    // Add to watchlist Click event for Suggesntion Panel
+    document.addEventListener('click', function(e){
+      console.log(e.target.className);
+      if(e.target.className === 'far fa-star') {
+        // Change the star mark to solid star icon
+        $(".fa-star").addClass('fas');
+
+        $(".fa-star").removeClass('far');
+      } 
+      if(e.target.className === 'fas fa-star') {
+        // Change the star mark to solid star icon
+        $(".fa-star").addClass('far');
+
+        $(".fa-star").removeClass('fas');
+      } 
+    })
+    
     // .on("click") function associated with the Search Button
     $("#run-search-01").click(function(event) {
       event.preventDefault();
