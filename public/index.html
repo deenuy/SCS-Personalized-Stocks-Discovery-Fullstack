@@ -28,14 +28,14 @@
 	<header>
 		<nav class="navbar-global">
 			<div class="navbar-logo">
-				<a class="navbar-logo-caption nav-item" href="#">Insert Logo</a>
+				<a class="navbar-logo-caption" href="#">Insert Logo</a>
 			</div>
 			<div class="navbar-list" id="navbarNavAltMarkup">
-				<div class="navbar-nav">
-				  <a class="nav-item" href="#">Discover Stocks</a>
-				  <a class="nav-item" href="#">My Dashboard</a>
-				  <a class="nav-item" href="#">Help</a>
-				</div>
+				<ul class="navbar-nav">
+					<li><a class="nav-item" href="./public/index.html">Discover Stocks</a></li>
+					<li><a class="nav-item" href="./my-dashboard.html">My Dashboard</a></li>
+					<li><a class="nav-item" href="./team.html">Team</a></li>
+				</ul>
 			</div>
 		</nav>
 	</header>
@@ -48,22 +48,37 @@
 				<div class="heading">
 					<h1 class="h">Discover Stock & Commodity Things</h1>
 					<p>Discover the Stocks and Commodities with personalized experience for new comers in Trading. Discover Stocks will help you retrive user friendly content and news. You can bookmark news and stock companies to save and track later. </p>
-					<a class="btn-primary button" title="Read More" aria-label="Read More" href="/help" style="font-size: large;">Read More</a>
+					<a class="btn-primary button" title="Read More" aria-label="Read More" href="/help" style="font-size: 1em;">Read More</a>
 				</div>
 				<div class="search-bar">
 					<div class="search-container">
 						<input type="text" class="search-input" placeholder="Search for News, Stocks or Companies">
-						<div class="suggestions"></div>
+						<select class="search-input-region">
+							<option value="US" selected>US</option>
+							<option value="IN">IN</option>
+							<option value="CA">CA</option>
+							<option value="FR">FR</option>
+							<option value="GB">GB</option>
+							<option value="BR">BR</option>
+							<option value="AU">AU</option>
+							<option value="DE">DE</option>
+							<option value="IT">IT</option>
+							<option value="HK">HK</option>
+							<option value="ES">ES</option>
+							<option value="SG">SG</option>
+						</select>
+						<!--region US|BR|AU|CA|FR|DE|HK|IN|IT|ES|GB|SG One of the following is allowed -->
 					</div>
 					<button class="btn btn-primary search-icon" id="run-search-01" type="submit">
 						<i class="fa fa-search"></i>
 					</button>
 				</div>
+				<div class="suggestions"></div>
 			</div>
 		</div>
 		<div class="news-container">
 			<!-- News feed and widget section -->
-			<div class="row">
+			<div class="row news-summary">
 				<div class="col-6 news-placeholder">
 					<!-- This row will handle all of the retrieved articles -->
 					<section class="row">

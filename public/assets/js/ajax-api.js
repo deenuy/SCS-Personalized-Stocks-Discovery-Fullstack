@@ -29,17 +29,16 @@ $(document).ready(function(){
   }
   // Render auto-suggestion for displaying stock companies and symbols based on user entry in search bar
   function renderSelection(resultObj) {
-    var suggestionList = 3;
 
     suggestionPanel.classList.add('show');
 
-    // Display only top 6 companies for auto suggestions
+    // Display companies for auto suggestions
     for (var i=0; i<resultObj.ResultSet.Result.length; i++) {
       var company = resultObj.ResultSet.Result[i].name;
       var company_ticker = resultObj.ResultSet.Result[i].symbol;
 
       const div = document.createElement('div');
-      div.innerHTML = company +" ("+ company_ticker  +")";
+      div.innerHTML = company +" ("+ company_ticker +")";
       div.setAttribute('class', 'suggestion');
       suggestionPanel.append(div);
     }
@@ -68,7 +67,7 @@ $(document).ready(function(){
   
         if (resultObj[i].company) {
           $articleListItem.append(
-            "<span class='label label-primary' style='background: #522399; color: #fff; padding: 0.2rem; margin-bottom: 0.2rem;'>" +
+            "<span class='label label-primary' style='background: #03A9F4; color: #fff; padding: 0.2rem; margin-bottom: 0.2rem;'>" +
               "<strong> " +
               resultObj[i].company +
               "</strong>"
@@ -77,17 +76,17 @@ $(document).ready(function(){
   
         // If the article has a byline, log and append to $articleList
         if (resultObj[i].title) {
-          $articleListItem.append("<h5 class='newsHeadline' style='margin-top: 0.75rem; margin-bottom: 0.75rem;'>" + resultObj[i].title + "</h5>");
+          $articleListItem.append("<h5 class='newsHeadline' style='margin-top: 0.5rem; margin-bottom: 0.5rem;'>" + resultObj[i].title + "</h5>");
         }
   
         // Log section, and append to document if exists
         if (resultObj[i].author) {
-          $articleListItem.append("<h5 class='author' style='margin-top: 0.75rem; margin-bottom: 0.75rem;'>Author: " + resultObj[i].author + "</h5>");
+          $articleListItem.append("<h5 class='author' style='margin-top: 0.5rem; margin-bottom: 0.5rem;'>Author: " + resultObj[i].author + "</h5>");
         }
   
         // Log published date, and append to document if exists
         if (resultObj[i].publisher) {
-          $articleListItem.append("<h5 class='author' style='margin-top: 0.75rem; margin-bottom: 0.75rem;'>" + resultObj[i].publisher + "</h5>");
+          $articleListItem.append("<h5 class='author' style='margin-top: 0.5rem; margin-bottom: 0.5rem;'>" + resultObj[i].publisher + "</h5>");
         }
   
         // Append news log url
@@ -187,24 +186,29 @@ $(document).ready(function(){
     
     // Listener event on user key entry in search bar for auto-suggestion of stock company and symbol
     searchInput.addEventListener('keyup', function(e){
+      console.log(e.key);
       suggestionPanel.innerHTML = '';
 
       const input = searchInput.value;
+      var region = $(".search-input-region").val();
 
       if(input){
-        // Make the AJAX request to the API - GETs the JSON data at the query = input
+
+        // Make the AJAX request to the API - Get auto complete suggestion by term or phrase
         var settings = {
           "async": true,
           "crossDomain": true,
-          "url": "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/auto-complete?lang=en&region=US&query="+input,
+          "url": "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/auto-complete?region="+region+"&query="+input,
           "method": "GET",
           "headers": {
-              "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
-              "x-rapidapi-key": "88d999ffd3msh5b7eb7230c1ef95p1ff909jsn76383fb30752"
+            "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
+            "x-rapidapi-key": "88d999ffd3msh5b7eb7230c1ef95p1ff909jsn76383fb30752"
           }
         }
+
         $.ajax(settings).done(function (response) {
-            renderSelection(response);
+          console.log(response);
+          renderSelection(response);
         });
       }
 
@@ -233,6 +237,10 @@ $(document).ready(function(){
           selectedSuggestionIndex = -1;
           return;
       }
+      if (e.key === 'Backspace'){
+        suggestionPanel.classList.remove('show');
+        return;
+      }
     })
 
     // Listener on click event to display the suggestion in search bar 
@@ -240,13 +248,13 @@ $(document).ready(function(){
       if(e.target.className === 'suggestion') {
           // display selected company in search input value
           searchInput.value = e.target.innerHTML;
-
-          // From selected stock company from auto suggestion extract Symbol. Ex: Apple Inc. (AAPL). Result is AAPL
           search_symbol = e.target.innerHTML;
-          search_symbol = search_symbol.split(/[()]/)[1];
-         
+
           // On selection, hide suggestion list
           suggestionPanel.classList.remove('show');
+          
+          // From selected stock company from auto suggestion extract Symbol. Ex: Apple Inc. (AAPL). Result is AAPL
+          search_symbol = search_symbol.split(/[()]/)[1];
       }
     })
 
@@ -258,7 +266,7 @@ $(document).ready(function(){
       clear();
 
       // var region = $("#start-year").val().trim();
-      var region = 'US'
+      var region = $(".search-input-region").val();
 
       // Return from function early if submitted input is blank
       if (company === "") {
