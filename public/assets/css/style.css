@@ -265,7 +265,7 @@ a:hover{
 .fa-star{
   cursor: pointer;
   margin-left: auto;
-  font-size: 15px;
+  font-size: 20px;
   color: #03A9F4;
 }
 .fa-star:hover{
@@ -288,7 +288,7 @@ a:hover{
   padding-top: 1.2rem;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .news-container > .row {
@@ -466,20 +466,19 @@ a:hover{
   font-feature-settings: 'liga';
 }
 
-@media screen and (max-width: 1345px){
-.statistics-stock {
-    margin-top: 15px;
-}
-
-@media screen and (min-width: 480px){
-.dataAttr {
-    width: 30%;
-}
-
 @media screen and (max-width: 768px) {
-  .container {
-    width:100%;
-    margin:0;
-    border-radius:0;
+  .heading > h1{
+    text-align: center;
+    margin-bottom: .5rem;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  .heading > h5{
+    margin-top: 15px;
+  }
+  .heading > p {
+    margin-top: 1rem;
+    font-size: 1.2em;
+    color: red;
   }
 }
