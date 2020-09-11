@@ -58,7 +58,7 @@ $(document).ready(function(){
       const div = document.createElement('div');
       div.innerHTML = newStockObj[i].name +" ("+ "<strong>" + newStockObj[i].symbol + "</strong>" +")";
       div.setAttribute('class', 'suggestion');
-      div.setAttribute('data', 'attr'+i);
+      div.setAttribute('dataattr', 'attr'+i);
       suggestionPanel.append(div);
 
       // Add to watchlist icon on suggestion box
@@ -279,9 +279,9 @@ $(document).ready(function(){
 
     // Listener on click event to display the suggestion in search bar 
     document.addEventListener('click', function(e){
+    
       if(e.target.className === 'suggestion') {
           // display selected company in search input value
-          // console.log($(this).attr('data'));
           search_symbol = e.target.innerHTML;
 
           // On selection, hide suggestion list
@@ -296,19 +296,21 @@ $(document).ready(function(){
 
     // Add to watchlist Click event for Suggesntion Panel
     document.addEventListener('click', function(e){
-      console.log(e.target.className);
-      if(e.target.className === 'far fa-star') {
-        // Change the star mark to solid star icon
-        $(".fa-star").addClass('fas');
 
-        $(".fa-star").removeClass('far');
-      } 
-      if(e.target.className === 'fas fa-star') {
-        // Change the star mark to solid star icon
-        $(".fa-star").addClass('far');
+      console.log(e.target.classList[0]);
 
-        $(".fa-star").removeClass('fas');
+      if(e.target.classList[0] === 'far') {
+        // Change the star mark to solid star icon
+        console.log($(e.target.classList));
+        $(e.target).removeClass('far fa-star').addClass('fas fa-star');
+        console.log(e.target.classList);
+      } else if(e.target.classList[0] === 'fas') {
+        // Change the star mark to solid star icon
+        console.log($(e.target.classList));
+        $(e.target).removeClass('fas fa-star').addClass('far fa-star');
+        console.log(e.target.classList);
       } 
+      
     })
     
     // .on("click") function associated with the Search Button
