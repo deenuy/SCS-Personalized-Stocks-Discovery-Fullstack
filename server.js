@@ -23,7 +23,8 @@ app.use(express.static("public"));
 
 // Controller/Routes
 // =============================================================
-//require("./routes/routes-html")(app);
+require("./routes/routes-html")(app);
+require("./controllers/user_fav_stock_controller.js")(app);
 //require("./routes/routes-api")(app);
 
 // Set Handlebars.
