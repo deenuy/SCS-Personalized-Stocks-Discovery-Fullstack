@@ -9,7 +9,7 @@ var express = require("express");
 // Sets up the Express App
 // =============================================================
 var app = express();
-var PORT = process.env.PORT || 8082;
+var PORT = process.env.PORT || 8083;
 
 // Requiring our models for syncing
 var db = require("./models");
@@ -23,7 +23,8 @@ app.use(express.static("public"));
 
 // Controller/Routes
 // =============================================================
-//require("./routes/routes-html")(app);
+require("./routes/routes-html")(app);
+require("./controllers/controller.js")(app);
 //require("./routes/routes-api")(app);
 
 // Set Handlebars.
