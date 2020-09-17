@@ -4,10 +4,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING(250),
             allowNull: false
         },
-        summary: {
-            type: DataTypes.STRING(250),
-            allowNull: false
-        },
+        //summary: {
+        //    type: DataTypes.STRING(250),
+        //    allowNull: false
+        //},
         publisher: {
             type: DataTypes.STRING(50),
             allowNull: false

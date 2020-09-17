@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     var FavoriteStock = sequelize.define("FavoriteStock", {
         stockName: {
             type: DataTypes.STRING(50),
@@ -10,22 +10,25 @@ module.exports = function(sequelize, DataTypes) {
         }
     }, {
         indexes: [{
-                unique: false,
-                fields: ['stockName']
-            }
-        ]
+            unique: false,
+            fields: ['stockName']
+        },
+        {
+            unique: true,
+            fields: ['stockSymbol', 'userId']
+        }]
     });
-    
-    FavoriteStock.associate = function(models) {
+
+    FavoriteStock.associate = function (models) {
         FavoriteStock.belongsTo(models.User, {
-            foreignKey: {allowNull: false},
+            foreignKey: { allowNull: false },
         });
     };
-    FavoriteStock.associate = function(models) {
-       FavoriteStock.hasMany(models.FavoriteNews, {
-        onDelete: "cascade"
+    FavoriteStock.associate = function (models) {
+        FavoriteStock.hasMany(models.FavoriteNews, {
+            onDelete: "cascade"
         });
     };
-    
+
     return FavoriteStock;
 };
