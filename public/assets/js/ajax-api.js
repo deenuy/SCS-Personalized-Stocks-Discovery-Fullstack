@@ -9,6 +9,8 @@ $(document).ready(function(){
   var search_symbol = null;
   var newSummaryObj = [];
   var newStockObj = [];
+  var stockProfileObj = [];
+  var newStockProfileObj = [];
 
   const searchInput = document.querySelector('.search-input');
   const suggestionPanel = document.querySelector(".suggestions");
@@ -25,9 +27,33 @@ $(document).ready(function(){
     url = null;
     obj = [];
     newSummaryObj = [];
+    newStockProfileObj = [];
+    stockProfileObj = [];
     $(".stats").empty();
     $("#article-section").empty();
   }
+
+  function clearStats(){
+    $(".companyId").empty();
+    $(".exchange").empty();
+    $(".companyName").empty();
+
+    $(".priceValue").empty();
+    $(".currencyValue").empty();
+    $(".changeAbsolute").empty();
+    $(".changePercent").empty();
+    // $(".triangle").empty();
+
+    $(".openPriceResult").empty();
+    $(".previousClosingResult").empty();
+    $(".volumeResult").empty();
+    $(".avgVolumeResult").empty();
+    $(".marketcapResult").empty();
+    $(".dayRangerResult").empty();
+    $(".aboutCompanyHeader").empty();
+    $(".aboutCompany").empty();
+  }
+
   // Render auto-suggestion for displaying stock companies and symbols based on user entry in search bar
   function renderSelection(resultObj) {
     newStockObj = [];
@@ -132,6 +158,12 @@ $(document).ready(function(){
   
         // Append the article
         $articleList.append($articleListItem);
+
+        // Bookmark Icon
+        var $articleListItemBookmark = $("<div class='articleListItemBookmark'>");
+
+        // Append the article
+        $articleList.append($articleListItemBookmark);
       }
     }
   }
@@ -167,9 +199,6 @@ $(document).ready(function(){
 
     // Add to news feed to browser local storage
     storeNews(obj);
-
-    // Render in HTML news feed
-    renderNewsFeed(obj)
   }
   // Function to store the news summary in local storage
   function storeNews(object) {
@@ -185,31 +214,68 @@ $(document).ready(function(){
 
   // Function to fetch attributes from API response and add to localStorage
   function getStockStats(stockStatsObj){
+    // console.log(stockStatsObj)
+    newSummaryObj = [];
 
     newSummaryObj.push({
-      'Name': stockStatsObj.quoteType.shortName,
-      'Price': stockStatsObj.price.regularMarketOpen.raw,
-      'financialCurrency': stockStatsObj.earnings.financialCurrency,
-      'Sector': stockStatsObj.summaryProfile.sector,
-      'longBusinessSummary': stockStatsObj.summaryProfile.longBusinessSummary
+      'companyId': stockStatsObj.price.symbol,
+      'market': stockStatsObj.quoteType.market,
+      'quoteType': stockStatsObj.quoteType.quoteType,
+      'exchange': stockStatsObj.price.exchangeName,
+      'quoteType': stockStatsObj.price.quoteType,
+      'companyName': stockStatsObj.price.longName,
+      'priceText': stockStatsObj.financialData.currentPrice.fmt,
+      'currency': stockStatsObj.summaryDetail.currency,
+      'openPrice': stockStatsObj.summaryDetail.open.fmt,
+      'previousClosing': stockStatsObj.summaryDetail.previousClose.fmt,
+      'volume': stockStatsObj.summaryDetail.volume.fmt,
+      'avgVolume': stockStatsObj.summaryDetail.averageVolume.fmt,
+      'marketCap': stockStatsObj.price.marketCap.fmt,
+      'dayHigh': stockStatsObj.summaryDetail.dayHigh.fmt,
+      'dayLow': stockStatsObj.summaryDetail.dayLow.fmt
     });
 
     // Store Stock Summary Data into Browser Local Storage
-    localStorage.setItem('scs_stock_summary', JSON.stringify(newSummaryObj));
+    localStorage.setItem('scs_stock_statistics', JSON.stringify(newSummaryObj));
   }
 
   // Function to read the stock stats from local storage
   function renderStockStats(){
     
-    newSummaryObj = JSON.parse(localStorage.getItem('scs_stock_summary'));
+    newSummaryObj = JSON.parse(localStorage.getItem('scs_stock_statistics'));
+
+    // console.log(newSummaryObj, "Render Stocks Print");
+
+    clearStats();
 
     if(newSummaryObj) {
-      console.log('Rendering from local storage', newSummaryObj);
-      $(".statistics").append($("<p>").addClass('stats').text("Name: "+ newSummaryObj[0].Name))
-      $(".statistics").append($("<p>").addClass('stats').text("Price: "+ newSummaryObj[0].Price))
-      $(".statistics").append($("<p>").addClass('stats').text("Financial Currency: "+ newSummaryObj[0].financialCurrency))
-      $(".statistics").append($("<p>").addClass('stats').text("Sector: "+ newSummaryObj[0].Sector))
-      $(".statistics").append($("<p>").addClass('stats').text("Business Summary: "+ newSummaryObj[0].longBusinessSummary))
+      // console.log('Rendering from local storage', newSummaryObj);
+
+      $(".companyId").append(newSummaryObj[0].companyId + " (" + newSummaryObj[0].market + ") ");
+      $(".exchange").append(newSummaryObj[0].exchange);
+      $(".companyName").append(newSummaryObj[0].companyName);
+
+      $(".priceValue").append(newSummaryObj[0].priceText);
+      $(".currencyValue").append(newSummaryObj[0].currency);
+      $(".changeAbsolute").append(newSummaryObj[0].priceText);
+      $(".changePercent").append(newSummaryObj[0].priceText);
+      // $(".triangle").append(newSummaryObj[0].companyName);
+
+      $(".openPriceResult").append(newSummaryObj[0].openPrice);
+      $(".previousClosingResult").append(newSummaryObj[0].previousClosing);
+      $(".volumeResult").append(newSummaryObj[0].volume);
+      $(".avgVolumeResult").append(newSummaryObj[0].avgVolume);
+      $(".marketcapResult").append(newSummaryObj[0].marketCap);
+      $(".dayRangerResult").append(newSummaryObj[0].dayHigh + " - " + newSummaryObj[0].dayLow);
+
+      $(".aboutCompanyHeader").append("About " + newSummaryObj[0].companyName);
+
+      stockProfileObj = JSON.parse(localStorage.getItem('scs_stock_profile'));
+
+      if(stockProfileObj){
+        $(".aboutCompany").append("About " + stockProfileObj[0].longBusinessSummary);
+      }
+
     } else {
       console.log('Local storage is empty');
     }
@@ -297,7 +363,7 @@ $(document).ready(function(){
     // Add to watchlist Click event for Suggesntion Panel
     document.addEventListener('click', function(e){
 
-      console.log(e.target.classList[0]);
+      // console.log(e.target.classList[0]);
 
       if(e.target.classList[0] === 'far') {
         // Change the star mark to solid star icon
@@ -316,9 +382,6 @@ $(document).ready(function(){
     // .on("click") function associated with the Search Button
     $("#run-search-01").click(function(event) {
       event.preventDefault();
-
-      // Empty the region associated with the articles
-      clear();
 
       // var region = $("#start-year").val().trim();
       var region = $(".search-input-region").val();
@@ -345,11 +408,11 @@ $(document).ready(function(){
           updatePage(response);
       });
 
-      // AJAX request to get stock summary of selected stock symbol and region from RAPID API Yahoo Finance
+      // AJAX request to get stock company profile of selected stock symbol and region from RAPID API Yahoo Finance
       var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?"+region+"&symbol="+search_symbol,
+        "url": "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-profile?"+region+"&symbol="+search_symbol,
         "method": "GET",
         "headers": {
           "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
@@ -357,10 +420,46 @@ $(document).ready(function(){
         }
       }
       
-      $.ajax(settings).done(function (response1) {
-        var stockStatsObj = response1;
-        getStockStats(response1);
-        renderStockStats();
+      $.ajax(settings).done(function (response4) {
+        // console.log(response4 + "Stock Profile Response");
+        
+        newStockProfileObj.push({
+          'sector': response4.assetProfile.sector,
+          'fullTimeEmployees': response4.assetProfile.fullTimeEmployees,
+          'longBusinessSummary': response4.assetProfile.longBusinessSummary,
+          'city': response4.assetProfile.city,
+          'state': response4.assetProfile.state,
+          'country': response4.assetProfile.country,
+          'industry': response4.assetProfile.industry,
+          // 'ceo': response4.companyOfficers[0].name,
+          // 'ceoTitle': response4.companyOfficers[0].title,
+        });
+
+        // Store Stock Summary Data into Browser Local Storage
+        localStorage.setItem('scs_stock_profile', JSON.stringify(newStockProfileObj));
+
+
+        // AJAX request to get stock summary of selected stock symbol and region from RAPID API Yahoo Finance
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-statistics?"+region+"&symbol="+search_symbol,
+          "method": "GET",
+          "headers": {
+            "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
+            "x-rapidapi-key": "88d999ffd3msh5b7eb7230c1ef95p1ff909jsn76383fb30752"
+          }
+        }
+        
+        $.ajax(settings).done(function (response1) {
+          // console.log(response1)
+          getStockStats(response1);
+
+          // Render in HTML news feed
+          renderNews();
+          renderStockStats();
+        });
+
       });
 
       // AJAX request to get Charts of selected stock symbol and region from RAPID API Yahoo Finance

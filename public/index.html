@@ -28,7 +28,7 @@
 	<header>
 		<nav class="navbar-global">
 			<div class="navbar-logo">
-				<a class="navbar-logo-caption" href="#">Insert Logo</a>
+				<a class="navbar-logo-caption" href="#">Discover Stocks</a>
 			</div>
 			<div class="navbar-list" id="navbarNavAltMarkup">
 				<ul class="navbar-nav">
@@ -117,21 +117,21 @@
 									<!-- <div class="statistics"> </div> -->
 									<div class="snapshotSummary">
 										<section class="company">
-											<span class="companyId">AAPL:US</span>
-											<span class="exchange">NASDAQ GS</span>
+											<span class="companyId"></span>
+											<span class="exchange"></span>
 											<div>
-												<h1 class="companyName">Apple Inc</h1>
-												<a class="companyProfileLink" href="/profile/company/AAPL:US">COMPANY INFO</a>
+												<h1 class="companyName"></h1>
+												<!-- <a class="companyProfileLink" href="/profile/company/AAPL:US">COMPANY INFO</a> -->
 											</div>
 										</section>
 										<section class="price">
 											<section><div class="overviewRow">
-												<span class="priceText">117.32</span>
-												<span class="currency">USD</span>
+												<span class="priceText priceValue"></span>
+												<span class="currency currencyValue"></span>
 											</div>
 											<div class="overviewRow">
-												<span class="changeAbsolute positive">+4.50</span>
-												<span class="changePercent positive">+3.99%</span>
+												<span class="changeAbsolute positive"></span>
+												<span class="changePercent positive"></span>
 												<span class="triangle up">Up arrow</span>
 											</div>
 										</section>
@@ -139,32 +139,40 @@
 									<div class="marketStatus" data="show">
 										<section class="market-details">
 											<ul class="statistics-stock">
-												<li class="dataAttr openprice numeric">
-													<div class="dataAttrLabel"> <span>Open</span> </div>
-													<div class="dataAttrValue">120.07</div>
+												<li class="dataAttr openPrice numeric">
+													<div class="dataAttrLabel"> <span>Open Price</span> </div>
+													<div class="dataAttrValue openPriceResult"></div>
 												</li>
 												<li class="dataAttr previousClosing numeric">
-													<div class="dataAttrLabel"> <span>Prev Close</span> </div>
-													<div class="dataAttrValue">120.88</div>
+													<div class="dataAttrLabel"> <span>Prev Close Price</span> </div>
+													<div class="dataAttrValue previousClosingResult"></div>
 												</li>
 												<li class="dataAttr volume numeric">
 													<div class="dataAttrLabel"> <span>Volume</span> </div>
-													<div class="dataAttrValue">32,607,163</div>
-												</li>
-												<li class="dataAttr marketcap numeric">
-													<div class="dataAttrLabel"> <span>Market Cap<span> </div>
-													<div class="dataAttrValue">2.069T</div>
+													<div class="dataAttrValue volumeResult"></div>
 												</li>
 												<li class="dataAttr volume numeric">
-													<div class="dataAttrLabel"> <span>Volume</span> </div>
-													<div class="dataAttrValue">32,607,163</div>
+													<div class="dataAttrLabel"> <span>Avg. Volume</span> </div>
+													<div class="dataAttrValue avgVolumeResult"></div>
 												</li>
 												<li class="dataAttr marketcap numeric">
 													<div class="dataAttrLabel"> <span>Market Cap<span> </div>
-													<div class="dataAttrValue">2.069T</div>
+													<div class="dataAttrValue marketcapResult"></div>
+												</li>
+												<li class="dataAttr dayRange numeric">
+													<div class="dataAttrLabel"> <span>Day's Range<span> </div>
+													<div class="dataAttrValue dayRangerResult"></div>
 												</li>												
 											</ul>
 										</section>
+										<div class="bottom-border">
+											<div class="taboola-profile-show-thumbnails"></div>
+										</div>
+										<div>
+											<h2 class="aboutCompanyHeader"></h2>
+											<section class="aboutCompany"></section>
+										</div>
+
 									</div>
 								</article>
 							</div>
