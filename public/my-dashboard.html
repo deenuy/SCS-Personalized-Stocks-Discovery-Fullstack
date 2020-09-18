@@ -19,7 +19,8 @@
 	<script src="https://kit.fontawesome.com/3e0c607514.js" crossorigin="anonymous"></script> 
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/dashboard.css">
 
 	<title>My Dashboard</title>
 </head>
@@ -28,7 +29,7 @@
 	<header>
 		<nav class="navbar-global">
 			<div class="navbar-logo">
-				<a class="navbar-logo-caption" href="#">Insert Logo</a>
+				<a class="navbar-logo-caption" href="#">Discover Stocks</a>
 			</div>
 			<div class="navbar-list" id="navbarNavAltMarkup">
 				<ul class="navbar-nav">
@@ -42,13 +43,61 @@
 	<main>
 		<div class="main-container">
 			<!-- Search bar and title header-->
-			<div class="container">
+			<div class="favStocks-container">
 				<!-- Background image -->
 				<div class="background"></div> 
-				<div class="heading">
-					<h1 class="h">Discover Stock & Commodity Things</h1>
-					<p>Discover the Stocks and Commodities with personalized experience for new comers in Trading. Discover Stocks will help you retrive user friendly content and news. You can bookmark news and stock companies to save and track later. </p>
-					<a class="btn-primary button" title="Read More" aria-label="Read More" href="/help" style="font-size: 1em;">Read More</a>
+				<div class="watchlist-title">
+					<h1 class="watchlist-header">Watchlist</h1>
+					<p>Following are the list of stocks added in watchlist. </p>
+				</div>
+				<div class="favStocks">
+					<div class="stockFavProfile show">
+						<img alt="" src="https://flipvo.com/img/logos/Apple_1588597137.jpg" class="stock-image">
+						<span class="stock-name">Apple Inc.</span>
+					</div>
+					<div class="stockFavProfile show">
+						<img alt="" src="https://flipvo.com/img/logos/Microsoft_1588597146.jpg" class="stock-image">
+						<span class="stock-name">Microsoft Corporation</span>
+					</div>
+					<div class="stockFavProfile show">
+						<img alt="" src="https://flipvo.com/img/logos/Facebook_Inc_1590434446.jpg" class="stock-image">
+						<span class="stock-name">Facebook Inc.</span>
+					</div>
+					<div class="stockFavProfile show">
+						<img alt="" src="https://flipvo.com/img/logos/Twitter_1588597321.jpg" class="stock-image">
+						<span class="stock-name">Twitter Inc.</span>
+					</div>
+					<div class="stockFavProfile show">
+						<img alt="" src="https://flipvo.com/img/logos/Tesla_Inc_1590434753.jpg" class="stock-image">
+						<span class="stock-name">Tesla Inc.</span>
+					</div>
+				</div>
+			</div>
+			<div class="fav-news-container">
+				<!-- News feed and widget section -->
+				<div class="row news-summary">
+					<div class="col-6 news-placeholder">
+						<!-- This row will handle all of the retrieved articles -->
+						<section class="row">
+							<div class="col-md-12">
+								<br>
+								<!-- This card will initially be made up of a card and wells for each of the articles retrieved -->
+								<div class="card">
+									
+									<!-- card Heading for the retrieved articles box -->
+									<div class="card-header">
+										<strong>
+											<i class="fa fa-table"></i> Bookmarked Articles</strong>
+									</div>
+										
+									<!-- This main card will hold each of the resulting articles -->
+									<article class="card-body" id="article-section">
+										<h2>This section</h2>
+									</article>
+								</div>
+							</div>
+						</section>
+					</div>
 				</div>
 			</div>
 		</div>
