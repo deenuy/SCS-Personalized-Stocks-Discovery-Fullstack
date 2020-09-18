@@ -11,6 +11,8 @@ $(document).ready(function(){
   var newStockObj = [];
   var stockProfileObj = [];
   var newStockProfileObj = [];
+  var stockLogoObj = [];
+  var getLogoFromStorage = [];
 
   const searchInput = document.querySelector('.search-input');
   const suggestionPanel = document.querySelector(".suggestions");
@@ -24,11 +26,14 @@ $(document).ready(function(){
     author = null;
     company = null;
     publisher = null;
+    stockCompanyName = null;
+    stockImgClass=null;
     url = null;
     obj = [];
     newSummaryObj = [];
     newStockProfileObj = [];
     stockProfileObj = [];
+    getLogoFromStorage = [];
     $(".stats").empty();
     $("#article-section").empty();
   }
@@ -391,6 +396,53 @@ $(document).ready(function(){
         return;
       }
 
+      // AJAX request to get stock logo 
+      var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://flipvo.p.rapidapi.com/api/rapid/company/quote/"+search_symbol,
+        "method": "GET",
+        "headers": {
+          "x-rapidapi-host": "flipvo.p.rapidapi.com",
+          "x-rapidapi-key": "88d999ffd3msh5b7eb7230c1ef95p1ff909jsn76383fb30752"
+        }
+      }
+      
+      $.ajax(settings).done(function (response) {
+        // console.log(response);
+        // $(".stock-image").attr('src', response[0].logo)
+        let stockImgClass = document.getElementsByClassName('stock-image');
+        let stockCompanyName = document.getElementsByClassName('stock-name');
+        let stockFavProfile = document.getElementsByClassName('stockFavProfile');
+        // console.log(stockImgClass.length)
+
+        stockLogoObj.push({
+          'logo': response[0].logo,
+          'symbol': response[0].symbol,
+          'companyName': response[0].companyName,
+          'website': response[0].website,
+        });
+
+        // Store Stock Summary Data into Browser Local Storage
+        localStorage.setItem('scs_stock_logo', JSON.stringify(stockLogoObj));
+
+        // Get logos from local browser storage
+        getLogoFromStorage = JSON.parse(localStorage.getItem('scs_stock_logo'));
+        // console.log(getLogoFromStorage.length)
+        var i = 0;
+        var j = getLogoFromStorage.length;
+
+        for (var i=0; i < stockImgClass.length; i++){
+          if(getLogoFromStorage.length>i){
+            stockImgClass[i].setAttribute('src', getLogoFromStorage[i].logo);
+            stockCompanyName[i].innerHTML= getLogoFromStorage[i].companyName;
+            stockFavProfile[i].classList.add('show');
+          } else{
+            return;
+          }
+        }
+      });
+
       // // AJAX request to get stock news of selected stock symbol and region from RAPID API Yahoo Finance
       var settings = {
         "async": true,
@@ -431,6 +483,7 @@ $(document).ready(function(){
           'state': response4.assetProfile.state,
           'country': response4.assetProfile.country,
           'industry': response4.assetProfile.industry,
+          'website': response4.assetProfile.website,
           // 'ceo': response4.companyOfficers[0].name,
           // 'ceoTitle': response4.companyOfficers[0].title,
         });
