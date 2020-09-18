@@ -222,7 +222,6 @@ a:hover{
   overflow: overlay;  /* Chrome */
   /* display: none; */
 }
-
 .suggestions.show {
   display: flex;
   flex-direction: column;
@@ -280,6 +279,47 @@ a:hover{
   border-color: #2d2d86;
   border-top-right-radius: 2.5em;
   border-bottom-right-radius: 2.5em;
+}
+
+/* Fav Stocks */
+
+.favStocks{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  margin-top: 2.5rem;
+  width: 80%;
+  margin-left: 6.5rem;
+}
+
+.stockFavProfile {
+  display: none;
+}
+
+.stockFavProfile.show {
+  position: relative;
+  padding: 0;
+  margin-left: 4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stock-image{
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.16), 0 1px 2px 0 rgba(0,0,0,0.26);
+  text-align: center;
+}
+
+.stock-name{
+  font-size: 14px;
+  color: #767676;
+  margin-top: .5em;
 }
 
 /* News Container Section  */
@@ -353,7 +393,7 @@ a:hover{
 }
 .snapshotSummary .companyProfileLink,
 .snapshotSummary .exchange{
-  font-size: 10px;
+  font-size: 14px;
   margin-left: 10px;
   color: #767676;
 }
@@ -425,6 +465,26 @@ a:hover{
   font-size: 22px;
   margin-top: 9px;
   padding-bottom: 9px;
+}
+
+.bottom-border{
+  position: relative;
+  border-bottom: 1px dotted #512DA8;
+  margin-bottom: 4px;
+  padding-bottom: 20px;
+}
+.aboutCompanyHeader {
+  display: block;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 30px;
+  margin-bottom: 10px;
+}
+
+.aboutCompany{
+  visibility: visible;
 }
 
 
