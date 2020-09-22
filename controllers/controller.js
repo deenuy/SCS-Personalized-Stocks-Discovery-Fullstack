@@ -63,6 +63,19 @@ module.exports = function (app) {
 
         });
     });
+   
+ //For adding Favorite Stocknews 
+    //Need to send an object such as {"username":"Smith123"}
+    app.get("/api/get_fav_stocks", function (req, res) {
+        db.User.findOne({ where: { username: req.body.username } }).then(function (dbUser) {
+            var userID = dbUser.id;
+            db.FavoriteStock.findAll({ where: { UserId: userID } })
+            .then(function (dbFavoriteStock) {
+                    res.json(dbFavoriteStock);
+            });
+        });
+    });
+
 
     //For deleting Favorite Stocknews
     //Need to send an object such as {"username":"Smith123","stockSymbol":"APPL","title":"How to watch Apple's Sept. 15 event and what to expect"}
