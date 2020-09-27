@@ -63,6 +63,17 @@ $(document).ready(function(){
   function renderSelection(resultObj) {
     newStockObj = [];
 
+    // GET fav stocks from DB
+    var settings = {
+      "url": "/api/add_fav_stock/",
+      "data": {"stockName":"Apple","stockSymbol":"APPL","username":"deenuy"},
+      "method": "POST",
+    }
+    $.ajax(settings).done(function (response) {
+      console.log(JSON.stringify(response));
+
+    });
+
     suggestionPanel.classList.add('show');
 
     var numStockResults = resultObj.ResultSet.Result;
@@ -375,10 +386,36 @@ $(document).ready(function(){
         console.log($(e.target.classList));
         $(e.target).removeClass('far fa-star').addClass('fas fa-star');
         console.log(e.target.classList);
+
+        // /api/add_fav_stock {"stockName":"Apple","stockSymbol":"APPL","username":"Smith123"}
+
+        var settings = {
+          "url": "/api/add_fav_stock/",
+          "data": {"stockName":"Apple","stockSymbol":"APPL","username":"deenuy"},
+          "method": "POST",
+        }
+        $.ajax(settings).done(function (response) {
+          console.log(JSON.stringify(response));
+
+        });
+
+
       } else if(e.target.classList[0] === 'fas') {
         // Change the star mark to solid star icon
         console.log($(e.target.classList));
         $(e.target).removeClass('fas fa-star').addClass('far fa-star');
+
+        // /api/add_fav_stock {"stockName":"Apple","stockSymbol":"APPL","username":"Smith123"}
+
+        var settings = {
+          "url": "/api/delete_fav_stock/",
+          "data": {"stockSymbol":"APPL","username":"deenuy"},
+          "method": "DELETE",
+        }
+        $.ajax(settings).done(function (response) {
+          console.log(JSON.stringify(response));
+        });
+
         console.log(e.target.classList);
       } 
       
