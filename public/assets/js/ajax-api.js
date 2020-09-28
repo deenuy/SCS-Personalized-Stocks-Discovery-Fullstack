@@ -13,6 +13,7 @@ $(document).ready(function(){
   var newStockProfileObj = [];
   var stockLogoObj = [];
   var getLogoFromStorage = [];
+  var favoriteStocks = [];
 
   const searchInput = document.querySelector('.search-input');
   const suggestionPanel = document.querySelector(".suggestions");
@@ -62,18 +63,7 @@ $(document).ready(function(){
   // Render auto-suggestion for displaying stock companies and symbols based on user entry in search bar
   function renderSelection(resultObj) {
     newStockObj = [];
-
-    // GET fav stocks from DB
-    var settings = {
-      "url": "/api/add_fav_stock/",
-      "data": {"stockName":"Apple","stockSymbol":"APPL","username":"deenuy"},
-      "method": "POST",
-    }
-    $.ajax(settings).done(function (response) {
-      console.log(JSON.stringify(response));
-
-    });
-
+    
     suggestionPanel.classList.add('show');
 
     var numStockResults = resultObj.ResultSet.Result;
@@ -105,7 +95,12 @@ $(document).ready(function(){
 
       // Add to watchlist icon on suggestion box
       const favIconEl = document.createElement('i');
-      favIconEl.setAttribute('class', 'far fa-star');
+      if (isFavoriteStock(numStockResults[i].symbol)) {
+        favIconEl.setAttribute('class', 'fas fa-star');
+      } else {
+        favIconEl.setAttribute('class', 'far fa-star');
+      }
+
       div.append(favIconEl);
       
       // New enhancement to show stock company details in Suggestion Panel (Future Enhancement)
@@ -299,9 +294,21 @@ $(document).ready(function(){
 
   // Initializes main function
   function init() {
+
+    // GET fav stocks for current user from DB 
+    var userName = "Test";
+    var settings = {
+      "url": "/api/get_fav_stocks/" + userName,
+      "method": "GET"
+      }
+    $.ajax(settings).done(function (dbResp) {
+      dbResp.forEach(element => {
+        favoriteStocks.push(element.stockSymbol);
+        });
+
     renderNews();
     renderStockStats();
-    
+
     // Listener event on user key entry in search bar for auto-suggestion of stock company and symbol
     searchInput.addEventListener('keyup', function(e){
       suggestionPanel.innerHTML = '';
@@ -357,7 +364,8 @@ $(document).ready(function(){
         suggestionPanel.classList.remove('show');
         return;
       }
-    })
+    });
+  })
 
     // Listener on click event to display the suggestion in search bar 
     document.addEventListener('click', function(e){
@@ -381,42 +389,42 @@ $(document).ready(function(){
 
       // console.log(e.target.classList[0]);
 
+      var stockName = "Amazon"; // e.target.innerHTML;
+      // From selected stock company from auto suggestion extract Symbol. Ex: Apple Inc. (AAPL). Result is AAPL
+      var stockSymbol = "AMZN"; //stockName.split(">")[1].split("<")[0];
+      var userName = "Test";
+
       if(e.target.classList[0] === 'far') {
         // Change the star mark to solid star icon
-        console.log($(e.target.classList));
         $(e.target).removeClass('far fa-star').addClass('fas fa-star');
         console.log(e.target.classList);
-
-        // /api/add_fav_stock {"stockName":"Apple","stockSymbol":"APPL","username":"Smith123"}
-
         var settings = {
           "url": "/api/add_fav_stock/",
-          "data": {"stockName":"Apple","stockSymbol":"APPL","username":"deenuy"},
+          "data": {"stockName":stockName,"stockSymbol":stockSymbol,"username":userName},
           "method": "POST",
         }
         $.ajax(settings).done(function (response) {
           console.log(JSON.stringify(response));
-
+          favoriteStocks.push(stockSymbol);
         });
-
 
       } else if(e.target.classList[0] === 'fas') {
         // Change the star mark to solid star icon
         console.log($(e.target.classList));
         $(e.target).removeClass('fas fa-star').addClass('far fa-star');
 
-        // /api/add_fav_stock {"stockName":"Apple","stockSymbol":"APPL","username":"Smith123"}
-
         var settings = {
           "url": "/api/delete_fav_stock/",
-          "data": {"stockSymbol":"APPL","username":"deenuy"},
+          "data": {"stockSymbol":stockSymbol,"username":userName},
           "method": "DELETE",
         }
         $.ajax(settings).done(function (response) {
+          if (isFavoriteStock(stockSymbol)) {
+            favoriteStocks.splice(favoriteStocks.indexOf(stockSymbol));
+          }
           console.log(JSON.stringify(response));
         });
 
-        console.log(e.target.classList);
       } 
       
     })
@@ -573,5 +581,8 @@ $(document).ready(function(){
         }
       });
     });
+  }
+  function isFavoriteStock(stockSymbol) {
+    return (favoriteStocks.indexOf(stockSymbol) !== -1);
   }
 });
