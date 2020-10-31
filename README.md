@@ -16,7 +16,7 @@ Using the Discover Stock and Commodity things application, within one search, yo
 
 This Discover Stock and Commodity things tool is not made tailor to finance experts who need a wide range of data for their analysis. This tool is created to simplify the users' process and to summarize a few main datapoints for a quick inquiry into a company profile. 
 
-Hosted Url: https://deenuy.github.io/SCS_Stock_Commodity_News/
+Hosted Url: https://discover-stocks-app.herokuapp.com/
 
 ## Usage:
 On the main search bar, the user can type in the company name they want to learn about and hit the Search button. 
