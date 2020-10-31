@@ -1,0 +1,51 @@
+
+body {
+    font-family: 'Circular Std Book';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 27px;
+    color: #808294;
+    -webkit-font-smoothing: antialiased;
+    background: #f8f8fb;
+}
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.client-block-v4.client-block {
+    background-color: #fff;
+    display: inline-block;
+    margin-bottom: 50px;
+    border-radius: 4px;
+    -moz-transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    padding: 35px;
+    height: 150px;
+    width: 150px;
+    border-radius: 100%;
+}
+@media only screen and (max-width: 1200px)
+.client-block-v4 .client-block-img img {
+    max-width: 100%;
+}
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+}
