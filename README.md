@@ -18,14 +18,6 @@ This Discover Stock and Commodity things tool is not made tailor to finance expe
 
 Hosted Url: https://deenuy.github.io/SCS_Stock_Commodity_News/
 
-## This repo contains:
-* README.md 
-* Index.html
-* CSS/style.css for custom styling
-* scripts/ajax-api.js for implementaiton logic
-* scripts/stocks-chart.js for financial stock chart
-* assets/img for the images used in webpage
-
 ## Usage:
 On the main search bar, the user can type in the company name they want to learn about and hit the Search button. 
 
@@ -43,6 +35,17 @@ The data is retrieved from Yahoo Finance API, Yahoo Finance API is a reliable so
 ### Demo
 
 ![Stock Demo](public/assets/img/proj2-demo.gif)
+
+## Technology Stack: 
+* HTML, CSS, Bootstrap
+* Javascript, Jquery
+* Handlebars template engine
+* Express
+* node.js
+* Sequelize
+* Mysql database
+* MVC framework
+* CRUD Operations
 
 ## Credits:
 * Deenu Yadav
