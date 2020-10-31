@@ -42,7 +42,7 @@ The data is retrieved from Yahoo Finance API, Yahoo Finance API is a reliable so
 
 ### Demo
 
-![Stock Demo](assets/img/demo.gif)
+![Stock Demo](public/assets/img/proj2-demo.gif)
 
 ## Credits:
 * Deenu Yadav
