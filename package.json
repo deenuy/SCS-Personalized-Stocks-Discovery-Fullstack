@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/deenuy/SCS-Personalized-Stocks-Discovery-Fullstack#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.2",
     "express-handlebars": "^5.1.0",
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.5",
