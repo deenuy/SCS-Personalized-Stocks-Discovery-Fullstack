@@ -24,7 +24,7 @@
     "express-handlebars": "^5.1.0",
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.5",
-    "moment": "^2.28.0",
+    "moment": "^2.29.2",
     "bootstrap-autocomplete": "^2.3.7"
   }
 }
